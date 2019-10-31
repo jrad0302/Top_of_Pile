@@ -6,6 +6,7 @@ This program loads a pile and finds the color of the topmost piece. */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define DEBUG 0 // RESET THIS TO 0 BEFORE SUBMITTING YOUR CODE
 
@@ -33,6 +34,8 @@ int main(int argc, char *argv[]) {
    }
 
   /* Your program goes here */
+   clock_t t;
+   t = clock();
   // answer byte
   int ans = 0b11111110;
   // for every pixel in the array
@@ -52,7 +55,7 @@ int main(int argc, char *argv[]) {
         // if the pixel is in the answer byte, remove it; otherwise, no need to touch it
         if ((ans >> l_pix) & 1) {
           ans -= 1 << l_pix;
-          // printf("%d\n", ans);
+          printf("%d\n", ans);
           // if ((1 << l_pix) == 8) {
           //   printf("left: %d, center: %d, right: %d, ans: %d\n", l_pix, pix, r_pix, ans);
           // }
@@ -61,7 +64,7 @@ int main(int argc, char *argv[]) {
       } else if (t_pix == b_pix && t_pix != pix) {
         if ((ans >> t_pix) & 1) {
           ans -= 1 << t_pix;
-          // printf("%d\n", ans);
+          printf("%d\n", ans);
           // if ((1 << t_pix) == 8) {
           //   printf("top: %d, center: %d, bottom: %d, ans: %d\n", t_pix, pix, b_pix, ans);
           // }
@@ -78,6 +81,9 @@ int main(int argc, char *argv[]) {
 
   TopColor = j;
   printf("The topmost part color is: %d\n", TopColor);
+  t = clock() - t;
+  double time = ((double) t / CLOCKS_PER_SEC);
+  printf("time elapsed: %f\n", time);
   exit(0);
 }
 
